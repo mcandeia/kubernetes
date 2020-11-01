@@ -1,0 +1,22 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: candy-services
+  region: us-east-1
+  version: "1.18"
+
+iam:
+  withOIDC: true
+
+managedNodeGroups:
+  - name: linux-ng
+    instanceType: t2.micro
+    minSize: 2
+    maxSize: 5
+    desiredCapacity: 3
+    labels: { role: app }
+    ssh:
+      allow: true
+      publicKeyName: Candy-Services

@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: ppp-grpc-
+spec:
+  pipelineRef:
+    name: build-and-deploy-pipeline
+  params:
+    - name: gitUrl
+      value: https://github.com/mcandeia/ppp-grpc
+    - name: gitRevision
+      value: main
+    - name: pathToYamlFile
+      value: kubernetes/ppp-grpc.yaml
+    - name: imageUrl
+      value: 462942818386.dkr.ecr.us-east-1.amazonaws.com/ppp-grpc
+    - name: imageTag
+      value: "1.0.0"
+    - name: pathToContext
+      value: .
+  serviceAccountName: pipeline-account
+  workspaces:
+    - name: git-source
+      persistentVolumeClaim:
+        claimName: ppp-grpc-source-pvc
