@@ -13,10 +13,12 @@ iam:
 managedNodeGroups:
   - name: linux-ng
     instanceType: t2.micro
-    minSize: 2
-    maxSize: 5
-    desiredCapacity: 3
+    minSize: 3
+    maxSize: 10
+    desiredCapacity: 8
     labels: { role: app }
+    availabilityZones:
+      - us-east-1a
     ssh:
       allow: true
       publicKeyName: Candy-Services
