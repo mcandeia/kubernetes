@@ -15,7 +15,7 @@ spec:
     - name: imageUrl
       value: 462942818386.dkr.ecr.us-east-1.amazonaws.com/ppp-grpc
     - name: imageTag
-      value: "1.0.5"
+      value: "1.0.8"
     - name: pathToContext
       value: .
   serviceAccountName: pipeline-account

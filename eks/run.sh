@@ -12,11 +12,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/
 
 kubectl -n kube-system annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/safe-to-evict="false"
 
-### Here you need to set <YOUR-CLUSTER-NAME> replace to `candy-services`
+### Here you need to set <YOUR-CLUSTER-NAME> replace to `CLUSTER`
 ### See more on https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
 
-##        - <--balance-similar-node-groups>
-##        - <--skip-nodes-with-system-pods=false>
+##        - --balance-similar-node-groups
+##        - --skip-nodes-with-system-pods=false
 kubectl -n kube-system edit deployment.apps/cluster-autoscaler
 
 ### Trouble shooting:
@@ -26,6 +26,9 @@ kubectl -n kube-system set image deployment.apps/cluster-autoscaler cluster-auto
 
 ## Apply tekton pipelines
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.11.1/release.yaml
+
+### Tekton dashboard
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml
 
 ### Add git clone task
 kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/v1beta1/git/git-clone.yaml
@@ -56,3 +59,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 ### Create Run task
 ## kubectl create -f tekton-pipelines/04-run/01-ppp-grpc-pipeline-run.yaml
+
+### Add linkerd
+linkerd install | kubectl apply -f -
+
+linkerd -n linkerd top deploy/linkerd-web

@@ -5,17 +5,20 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
   name: ppp-grpc-ingress
   namespace: default
 spec:
+  tls:
+    - hosts:
+        - ppp.marcos-candeia.com
+      secretName: grpc-key
   rules:
-    - host: acbe3de6510a643be915fb9b4689da2f-93a02eb91d8f20c6.elb.us-east-1.amazonaws.com
+    - host: ppp.marcos-candeia.com
       http:
         paths:
           - backend:
               serviceName: ppp-grpc
               servicePort: grpc
-  tls:
-    - secretName: elb-tls
-      hosts:
-        - acbe3de6510a643be915fb9b4689da2f-93a02eb91d8f20c6.elb.us-east-1.amazonaws.com

@@ -46,8 +46,9 @@ brew install tektoncd-cli
 
 printf "%s\n" "${bold}${yel}tektoncd-cli successfully installed${end}${normal}"
 
-printf "%s\n" "${bold}${grn}Creating cluster... ${end}${normal}"
 
-eksctl create cluster --config-file cluster-conf.yaml
+printf "%s\n" "${bold}${grn}Installing linkerd... ${end}${normal}"
 
-printf "%s\n" "${bold}${yel}Cluster provisioned.${end}${normal}"
+brew install linkerd
+
+printf "%s\n" "${bold}${yel}linkerd successfully installed${end}${normal}"

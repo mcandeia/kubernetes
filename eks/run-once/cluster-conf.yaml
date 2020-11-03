@@ -3,7 +3,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: candy-services
+  name: candeia-services
   region: us-east-1
   version: "1.18"
 
@@ -14,11 +14,11 @@ managedNodeGroups:
   - name: linux-ng
     instanceType: t2.micro
     minSize: 3
-    maxSize: 10
-    desiredCapacity: 8
+    maxSize: 15
+    desiredCapacity: 10
     labels: { role: app }
     availabilityZones:
-      - us-east-1a
+      - us-east-1f
     ssh:
       allow: true
       publicKeyName: Candy-Services
